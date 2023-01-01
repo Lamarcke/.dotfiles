@@ -36,5 +36,8 @@ export LIBGL_ALWAYS_INDIRECT=1
 
 # Update DBUS for gnome keyring to work
 # Also discards it's output
-dbus-update-activation-environment --all > /dev/null 2>&1
+if hash dbus-update-activation-environment --all 2>/dev/null; then
+	dbus-update-activation-environment --all > /dev/null 2>&1
+fi
+# dbus-update-activation-environment --all > /dev/null 2>&1
 export GTK_THEME=Adwaita-dark
