@@ -116,6 +116,23 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# GWSL
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
-export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
+# GTK Theme
+# Install extra themes with
+# sudo apt install gnome-themes-extra
+GTK_THEME=Adwaita:dark
+# Update DBUS for gnome keyring to work
+# Also discards it's output
+dbus-update-activation-environment --all > /dev/null 2>&1
+
+# Uses ABNT2 as keyboard layout
+# sudo apt-get install x11-xkb-utils
+setxkbmap -model abnt2 -layout br -variant abnt2
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# NVM
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

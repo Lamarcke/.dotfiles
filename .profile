@@ -29,15 +29,16 @@ fi
 # To shutup VSCode
 export DONT_PROMPT_WSL_INSTALL=1
 
-# GWSL
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0 #GWSL
-export PULSE_SERVER=tcp:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}') #GWSL
-export LIBGL_ALWAYS_INDIRECT=1
-
 # Update DBUS for gnome keyring to work
 # Also discards it's output
-if hash dbus-update-activation-environment --all 2>/dev/null; then
-	dbus-update-activation-environment --all > /dev/null 2>&1
-fi
-# dbus-update-activation-environment --all > /dev/null 2>&1
-export GTK_THEME=Adwaita-dark
+# Make sure to: sudo apt install gnome-keyring
+dbus-update-activation-environment --all > /dev/null 2>&1
+
+# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/lamarck/.local/share/JetBrains/Toolbox/scripts"
